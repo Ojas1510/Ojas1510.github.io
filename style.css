@@ -1,0 +1,559 @@
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root {
+  --ink-black: #17140f;
+  --ink-black-2: #1e1a13;
+  --phosphor-amber: #ffb000;
+  --phosphor-amber-dim: #b57e00;
+  --paper-cream: #e9dfc7;
+  --paper-shadow: #cabe9c;
+  --blueprint-navy: #1d2c47;
+  --blueprint-navy-2: #16233a;
+  --blueprint-line: #6f93b8;
+  --rust-copper: #b0592e;
+  --ledger-ink: #2a2620;
+
+  --font-terminal: 'VT323', monospace;
+  --font-body: 'Spectral', Georgia, serif;
+  --font-label: 'Zilla Slab', serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper-cream);
+  color: var(--ledger-ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* ============================================================
+   OVERLAYS
+   ============================================================ */
+.scanlines {
+  position: fixed; inset: 0; pointer-events: none; z-index: 50;
+  background: repeating-linear-gradient(
+    to bottom, rgba(0,0,0,0.09) 0px, rgba(0,0,0,0.09) 1px,
+    transparent 1px, transparent 3px
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.35;
+}
+.vignette {
+  position: fixed; inset: 0; pointer-events: none; z-index: 49;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.25) 100%);
+}
+
+/* ============================================================
+   HERO / CRT TERMINAL
+   ============================================================ */
+.crt-section {
+  min-height: 100vh;
+  background: var(--ink-black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.25rem 2rem;
+}
+
+.crt-frame {
+  width: min(880px, 100%);
+  background: linear-gradient(180deg, #262019, #14110c);
+  border-radius: 18px;
+  padding: 0.6rem;
+  box-shadow:
+    0 0 0 1px rgba(255,176,0,0.08),
+    0 30px 60px rgba(0,0,0,0.55),
+    inset 0 0 30px rgba(0,0,0,0.6);
+}
+
+.crt-topbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  color: var(--phosphor-amber-dim);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+}
+.crt-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--phosphor-amber-dim);
+  opacity: 0.6;
+  display: inline-block;
+}
+.crt-label { margin-left: 0.6rem; }
+
+.crt-screen {
+  background: radial-gradient(ellipse at 50% 0%, #241d12 0%, #100d09 75%);
+  border-radius: 10px;
+  padding: 1.75rem 1.75rem 2rem;
+  min-height: 60vh;
+  color: var(--phosphor-amber);
+  text-shadow: 0 0 6px rgba(255,176,0,0.55), 0 0 1px rgba(255,176,0,0.8);
+  font-family: var(--font-terminal);
+  font-size: 1.35rem;
+  overflow: hidden;
+}
+
+.boot-text {
+  white-space: pre-wrap;
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.terminal-body { animation: flicker-in 0.4s ease-out; }
+@keyframes flicker-in {
+  0% { opacity: 0; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.ascii-logo {
+  font-size: clamp(2.4rem, 7vw, 4.2rem);
+  line-height: 1;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.3rem;
+}
+
+.terminal-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  margin: 0 0 1.1rem;
+  opacity: 0.9;
+  text-shadow: none;
+}
+
+.terminal-help { margin: 0 0 1rem; font-size: 1.1rem; }
+.terminal-help .hl { text-decoration: underline; }
+
+.terminal-log {
+  min-height: 1rem;
+  margin-bottom: 0.4rem;
+}
+.terminal-log p { margin: 0.15rem 0; }
+.terminal-log .echo { opacity: 0.65; }
+.terminal-log .err { color: var(--rust-copper); text-shadow: none; }
+
+.prompt-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.prompt { font-size: 1.1rem; white-space: nowrap; }
+
+#terminalInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--phosphor-amber);
+  font-family: var(--font-terminal);
+  font-size: 1.2rem;
+  text-shadow: inherit;
+  caret-color: var(--phosphor-amber);
+}
+
+.quick-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.4rem;
+}
+.quick-nav button {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  background: transparent;
+  border: 1px solid var(--phosphor-amber-dim);
+  color: var(--phosphor-amber-dim);
+  padding: 0.5rem 0.9rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.quick-nav button:hover,
+.quick-nav button:focus-visible {
+  background: var(--phosphor-amber);
+  color: var(--ink-black);
+}
+
+.scroll-cue {
+  margin-top: 1.5rem;
+  color: var(--phosphor-amber-dim);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  animation: bob 2s ease-in-out infinite;
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* ============================================================
+   SHARED SHEET LAYOUT
+   ============================================================ */
+.sheet { padding: 5rem 1.25rem; }
+.sheet-inner { max-width: 980px; margin: 0 auto; }
+
+.sheet-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: var(--rust-copper);
+  margin: 0 0 0.4rem;
+}
+.sheet-title {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin: 0 0 2.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--ledger-ink);
+  display: inline-block;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ============================================================
+   ABOUT — paper sheet
+   ============================================================ */
+.paper-sheet {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255,255,255,0.25), transparent 40%),
+    var(--paper-cream);
+  border-top: 1px solid var(--paper-shadow);
+  border-bottom: 1px solid var(--paper-shadow);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+@media (max-width: 640px) {
+  .about-grid { grid-template-columns: 1fr; }
+}
+
+.polaroid {
+  background: #fdfaf2;
+  padding: 0.8rem 0.8rem 1.4rem;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+  transform: rotate(-3deg);
+  border: 1px solid #d9d1b8;
+}
+.polaroid-placeholder {
+  aspect-ratio: 1;
+  background: repeating-linear-gradient(45deg, #d9d1b8, #d9d1b8 8px, #ccc3a4 8px, #ccc3a4 16px);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #5a5340;
+  letter-spacing: 0.1em;
+}
+.polaroid-caption {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-align: center;
+  margin: 0.6rem 0 0;
+  color: #5a5340;
+}
+
+.typewriter-text p {
+  font-size: 1.08rem;
+  max-width: 60ch;
+}
+
+.stamp-line {
+  display: flex; flex-wrap: wrap; gap: 0.6rem;
+  margin-top: 1.4rem;
+}
+.stamp {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  border: 1.5px solid var(--rust-copper);
+  color: var(--rust-copper);
+  padding: 0.3rem 0.6rem;
+  border-radius: 2px;
+  transform: rotate(-2deg);
+}
+.stamp:nth-child(even) { transform: rotate(1.5deg); }
+
+/* ============================================================
+   PROJECTS — blueprint sheet
+   ============================================================ */
+.blueprint-sheet {
+  background:
+    linear-gradient(rgba(111,147,184,0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(111,147,184,0.18) 1px, transparent 1px),
+    var(--blueprint-navy);
+  background-size: 32px 32px, 32px 32px, auto;
+  color: var(--paper-cream);
+}
+.blueprint-eyebrow { color: #ffcf8f; }
+.blueprint-title { color: var(--paper-cream); border-bottom-color: var(--blueprint-line); }
+
+.schematic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.schematic-card {
+  border: 1px solid var(--blueprint-line);
+  background: rgba(22,35,58,0.55);
+  padding: 1.3rem 1.4rem 1.5rem;
+  position: relative;
+}
+.schematic-card::before,
+.schematic-card::after {
+  content: "";
+  position: absolute;
+  width: 10px; height: 10px;
+  border: 1px solid var(--blueprint-line);
+}
+.schematic-card::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.schematic-card::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+.schematic-header { margin-bottom: 0.7rem; }
+.fig-num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--blueprint-line);
+  margin-bottom: 0.3rem;
+}
+.schematic-header h3 {
+  font-family: var(--font-label);
+  font-size: 1.15rem;
+  margin: 0 0 0.25rem;
+  color: var(--paper-cream);
+}
+.fig-date {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #a9c1d9;
+}
+
+.schematic-card p {
+  font-size: 0.95rem;
+  color: #d8e2ee;
+  margin: 0 0 1rem;
+}
+
+.component-list {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+}
+.component-list li {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  border: 1px solid var(--blueprint-line);
+  color: #cfe0f0;
+  padding: 0.25rem 0.5rem;
+}
+
+/* ============================================================
+   SKILLS — instrument panel
+   ============================================================ */
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+}
+.panel-group-title {
+  font-family: var(--font-label);
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  margin: 0 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--paper-shadow);
+}
+
+.gauge-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.3rem;
+  margin-bottom: 0.85rem;
+}
+.gauge-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ledger-ink);
+}
+.gauge {
+  height: 8px;
+  background: #d9cea9;
+  border: 1px solid var(--paper-shadow);
+  position: relative;
+}
+.gauge-fill {
+  height: 100%;
+  width: var(--level, 50%);
+  background: repeating-linear-gradient(
+    90deg, var(--rust-copper) 0, var(--rust-copper) 6px, #8f3f1e 6px, #8f3f1e 8px
+  );
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1s ease;
+}
+.gauge-row.is-visible .gauge-fill,
+.reveal.is-visible .gauge-fill { transform: scaleX(1); }
+
+/* ============================================================
+   EXPERIENCE — ledger table
+   ============================================================ */
+.ledger-sheet {
+  background: var(--ink-black-2);
+  color: var(--paper-cream);
+}
+.ledger-sheet .sheet-title { color: var(--paper-cream); border-bottom-color: var(--phosphor-amber-dim); }
+.ledger-sheet .sheet-eyebrow { color: var(--phosphor-amber-dim); }
+
+.ledger-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+.ledger-table th {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-align: left;
+  color: var(--phosphor-amber-dim);
+  padding: 0.6rem 0.8rem;
+  border-bottom: 2px solid var(--phosphor-amber-dim);
+}
+.ledger-table td {
+  padding: 0.9rem 0.8rem;
+  border-bottom: 1px solid rgba(255,176,0,0.18);
+  vertical-align: top;
+}
+.ledger-table td:first-child {
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  color: var(--phosphor-amber);
+}
+
+/* ============================================================
+   CONTACT — telegram slip
+   ============================================================ */
+.telegram-sheet {
+  background: var(--paper-cream);
+}
+.telegram-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 2.5rem;
+}
+@media (max-width: 700px) {
+  .telegram-grid { grid-template-columns: 1fr; }
+}
+
+.telegram-details p {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  margin: 0 0 0.9rem;
+}
+.tg-label { color: var(--rust-copper); }
+.telegram-details a { color: var(--ledger-ink); }
+
+.telegram-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border: 1px dashed var(--paper-shadow);
+  padding: 1.5rem;
+  background: #fdfaf2;
+}
+.telegram-form label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--rust-copper);
+  margin-top: 0.6rem;
+}
+.telegram-form input,
+.telegram-form textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  border: none;
+  border-bottom: 1px solid var(--paper-shadow);
+  background: transparent;
+  padding: 0.4rem 0.1rem;
+  color: var(--ledger-ink);
+  resize: vertical;
+}
+.telegram-form input:focus,
+.telegram-form textarea:focus {
+  outline: none;
+  border-bottom-color: var(--rust-copper);
+}
+.telegram-form button {
+  margin-top: 1.2rem;
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  background: var(--rust-copper);
+  color: #fdfaf2;
+  border: none;
+  padding: 0.7rem 1.3rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.telegram-form button:hover,
+.telegram-form button:focus-visible { background: #8f3f1e; }
+
+.telegram-note {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--rust-copper);
+  min-height: 1.2em;
+}
+
+/* focus visibility across the page */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--rust-copper);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  background: var(--ink-black);
+  color: var(--phosphor-amber-dim);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 2rem 1rem;
+}

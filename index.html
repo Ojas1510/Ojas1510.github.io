@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ojas Nagta — Software Engineer</title>
+<meta name="description" content="Portfolio of Ojas Nagta, software engineer specializing in ML, NLP and full-stack systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Zilla+Slab:wght@400;600;700&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="scanlines" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<!-- ============================================================ -->
+<!-- HERO: interactive CRT terminal                                -->
+<!-- ============================================================ -->
+<section id="hero" class="crt-section">
+  <div class="crt-frame">
+    <div class="crt-topbar">
+      <span class="crt-dot"></span><span class="crt-dot"></span><span class="crt-dot"></span>
+      <span class="crt-label">TERM-01 :: OJAS-NAGTA.SYS</span>
+    </div>
+    <div class="crt-screen" id="crtScreen">
+      <pre id="bootText" class="boot-text"></pre>
+
+      <div class="terminal-body" id="terminalBody" hidden>
+        <div class="ascii-logo" aria-hidden="true">OJAS NAGTA</div>
+        <p class="terminal-tagline">SOFTWARE ENGINEER // ML + FULL-STACK SYSTEMS</p>
+        <p class="terminal-help">type <span class="hl">help</span> to see available commands, or use the panel below.</p>
+
+        <div id="terminalLog" class="terminal-log" aria-live="polite"></div>
+
+        <div class="prompt-line">
+          <label for="terminalInput" class="prompt">guest@ojas:~$</label>
+          <input type="text" id="terminalInput" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command input">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="quick-nav" aria-label="Section shortcuts">
+    <button data-cmd="about">about</button>
+    <button data-cmd="projects">projects</button>
+    <button data-cmd="skills">skills</button>
+    <button data-cmd="experience">experience</button>
+    <button data-cmd="contact">contact</button>
+  </nav>
+
+  <div class="scroll-cue" aria-hidden="true">▾ scroll ▾</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ABOUT: field notes on aged paper                              -->
+<!-- ============================================================ -->
+<section id="about" class="sheet paper-sheet reveal">
+  <div class="sheet-inner">
+    <p class="sheet-eyebrow">FIELD NOTES — OPERATOR'S LOG</p>
+    <h2 class="sheet-title">About</h2>
+
+    <div class="about-grid">
+      <div class="polaroid" aria-hidden="true">
+        <!-- EDIT ME: replace with <img src="assets/photo.jpg" alt="Ojas Nagta"> -->
+        <div class="polaroid-placeholder">PHOTO</div>
+        <p class="polaroid-caption">Patiala, Punjab</p>
+      </div>
+
+      <div class="typewriter-text">
+        <p>
+          I'm Ojas Nagta, a software engineer with a background in Electrical Engineering
+          and a Minor in Computer Science &amp; Engineering from Thapar Institute of Engineering
+          and Technology (CGPA 8.11/10). I build systems that sit at the intersection of
+          machine learning, data, and full-stack software — from large-scale NLP pipelines
+          to production-style web applications.
+        </p>
+        <p>
+          My work spans conversational AI trained on hundreds of millions of records,
+          sentiment analysis with transformer models, and even hardware — I've prototyped
+          haptic VR gloves from firmware to PCB. I like problems that force me to move
+          between layers: model, backend, data, and sometimes solder.
+        </p>
+        <p class="stamp-line">
+          <span class="stamp">EEE</span>
+          <span class="stamp">MINOR: CSE</span>
+          <span class="stamp">ML / NLP</span>
+          <span class="stamp">FULL-STACK</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PROJECTS: blueprint schematic sheets                          -->
+<!-- ============================================================ -->
+<section id="projects" class="sheet blueprint-sheet reveal">
+  <div class="sheet-inner">
+    <p class="sheet-eyebrow blueprint-eyebrow">SCHEMATIC INDEX</p>
+    <h2 class="sheet-title blueprint-title">Projects</h2>
+
+    <div class="schematic-grid">
+
+      <article class="schematic-card">
+        <header class="schematic-header">
+          <span class="fig-num">FIG. 01</span>
+          <h3>Large-Scale NLP Chatbot System</h3>
+          <span class="fig-date">Jul 2022 – May 2023</span>
+        </header>
+        <p>
+          A conversational AI trained on over 200 million Reddit comments, using a
+          Python data pipeline into an SQLite schema built for scale, and a fine-tuned
+          Neural Machine Translation model for response generation.
+        </p>
+        <ul class="component-list">
+          <li>Python</li><li>TensorFlow</li><li>SQLite</li>
+        </ul>
+      </article>
+
+      <article class="schematic-card">
+        <header class="schematic-header">
+          <span class="fig-num">FIG. 02</span>
+          <h3>Online Dating Application</h3>
+          <span class="fig-date">Sep 2023 – Jan 2024</span>
+        </header>
+        <p>
+          A full MERN-stack application with responsive React components for
+          authentication, onboarding, profiles and chat, backed by RESTful
+          Node.js/Express APIs and real-time messaging with persistent storage.
+        </p>
+        <ul class="component-list">
+          <li>React</li><li>Node.js</li><li>Express.js</li><li>MongoDB</li>
+        </ul>
+      </article>
+
+      <article class="schematic-card">
+        <header class="schematic-header">
+          <span class="fig-num">FIG. 03</span>
+          <h3>Sentiment Analysis on Amazon Reviews</h3>
+          <span class="fig-date">Sep 2022 – Nov 2022</span>
+        </header>
+        <p>
+          Compared lexicon-based (VADER) and transformer-based (RoBERTa) approaches
+          to sentiment classification across a large Amazon review dataset, extracting
+          customer insight from both methods.
+        </p>
+        <ul class="component-list">
+          <li>Python</li><li>VADER</li><li>RoBERTa</li>
+        </ul>
+      </article>
+
+      <article class="schematic-card">
+        <header class="schematic-header">
+          <span class="fig-num">FIG. 04</span>
+          <h3>Virtual Reality Haptic Gloves</h3>
+          <span class="fig-date">Jan 2023 – Dec 2023</span>
+        </header>
+        <p>
+          Designed, 3D-printed and wired haptic feedback modules with finger tracking,
+          coded the glove firmware, and integrated the hardware with VR systems via the
+          OpenGloves VR driver.
+        </p>
+        <ul class="component-list">
+          <li>Firmware</li><li>PCB Design</li><li>3D Printing</li><li>OpenGloves</li>
+        </ul>
+      </article>
+
+      <article class="schematic-card">
+        <header class="schematic-header">
+          <span class="fig-num">FIG. 05</span>
+          <h3>Credit Card Fraud Detection</h3>
+          <span class="fig-date">Jun 2023 – Jul 2023</span>
+        </header>
+        <p>
+          Built and analyzed a fraud detection dataset from European cardholder
+          transactions, handling severe class imbalance and evaluating models for
+          real-world financial security applications.
+        </p>
+        <ul class="component-list">
+          <li>Python</li><li>Data Balancing</li><li>Model Evaluation</li>
+        </ul>
+      </article>
+
+      <article class="schematic-card">
+        <header class="schematic-header">
+          <span class="fig-num">FIG. 06</span>
+          <h3>Predictive Analytics — CS:GO Round Outcome</h3>
+          <span class="fig-date">Jun 2023 – Jul 2023</span>
+        </header>
+        <p>
+          Predicted round outcomes from gameplay data, selecting 21 influential
+          features across KNN, Random Forest, and Neural Network models — Random
+          Forest led at 82.22% accuracy.
+        </p>
+        <ul class="component-list">
+          <li>KNN</li><li>Random Forest</li><li>Neural Networks</li>
+        </ul>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SKILLS: instrument panel                                      -->
+<!-- ============================================================ -->
+<section id="skills" class="sheet paper-sheet reveal">
+  <div class="sheet-inner">
+    <p class="sheet-eyebrow">INSTRUMENT PANEL</p>
+    <h2 class="sheet-title">Skills</h2>
+
+    <div class="panel-grid">
+
+      <div class="panel-group">
+        <h3 class="panel-group-title">Languages &amp; Databases</h3>
+        <div class="gauge-row"><span class="gauge-label">Python</span><div class="gauge"><div class="gauge-fill" style="--level:92%"></div></div></div>
+        <div class="gauge-row"><span class="gauge-label">JavaScript</span><div class="gauge"><div class="gauge-fill" style="--level:80%"></div></div></div>
+        <div class="gauge-row"><span class="gauge-label">C / C++</span><div class="gauge"><div class="gauge-fill" style="--level:75%"></div></div></div>
+        <div class="gauge-row"><span class="gauge-label">SQL / PostgreSQL / MySQL</span><div class="gauge"><div class="gauge-fill" style="--level:82%"></div></div></div>
+        <div class="gauge-row"><span class="gauge-label">MongoDB / SQLite</span><div class="gauge"><div class="gauge-fill" style="--level:78%"></div></div></div>
+      </div>
+
+      <div class="panel-group">
+        <h3 class="panel-group-title">Machine Learning</h3>
+        <div class="gauge-row"><span class="gauge-label">TensorFlow</span><div class="gauge"><div class="gauge-fill" style="--level:85%"></div></div></div>
+        <div class="gauge-row"><span class="gauge-label">Scikit-learn</span><div class="gauge"><div class="gauge-fill" style="--level:83%"></div></div></div>
+        <div class="gauge-row"><span class="gauge-label">NLP</span><div class="gauge"><div class="gauge-fill" style="--level:87%"></div></div></div>
+        <div class="gauge-row"><span class="gauge-label">Feature Engineering</span><div class="gauge"><div class="gauge-fill" style="--level:80%"></div></div></div>
+      </div>
+
+      <div class="panel-group">
+        <h3 class="panel-group-title">Analytics</h3>
+        <div class="gauge-row"><span class="gauge-label">Exploratory Data Analysis</span><div class="gauge"><div class="gauge-fill" style="--level:88%"></div></div></div>
+        <div class="gauge-row"><span class="gauge-label">Statistical Analysis</span><div class="gauge"><div class="gauge-fill" style="--level:78%"></div></div></div>
+        <div class="gauge-row"><span class="gauge-label">Power BI</span><div class="gauge"><div class="gauge-fill" style="--level:70%"></div></div></div>
+      </div>
+
+      <div class="panel-group">
+        <h3 class="panel-group-title">Backend &amp; Tools</h3>
+        <div class="gauge-row"><span class="gauge-label">Node.js / Express.js</span><div class="gauge"><div class="gauge-fill" style="--level:80%"></div></div></div>
+        <div class="gauge-row"><span class="gauge-label">REST APIs</span><div class="gauge"><div class="gauge-fill" style="--level:82%"></div></div></div>
+        <div class="gauge-row"><span class="gauge-label">Git</span><div class="gauge"><div class="gauge-fill" style="--level:85%"></div></div></div>
+        <div class="gauge-row"><span class="gauge-label">Weka</span><div class="gauge"><div class="gauge-fill" style="--level:65%"></div></div></div>
+      </div>
+
+    </div>
+    <!-- EDIT ME: tweak the --level percentages above to match your own self-assessment -->
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- EXPERIENCE / EDUCATION: service record ledger                 -->
+<!-- ============================================================ -->
+<section id="experience" class="sheet ledger-sheet reveal">
+  <div class="sheet-inner">
+    <p class="sheet-eyebrow">SERVICE RECORD</p>
+    <h2 class="sheet-title">Experience &amp; Education</h2>
+
+    <table class="ledger-table">
+      <thead>
+        <tr><th>Period</th><th>Entry</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2020 – 2024</td>
+          <td>B.E. Electrical Engineering</td>
+          <td>Thapar Institute of Engineering and Technology, Patiala — CGPA 8.11/10</td>
+        </tr>
+        <tr>
+          <td>2021 – 2022</td>
+          <td>Minor in Computer Science &amp; Engineering</td>
+          <td>Thapar Institute — CGPA 8.16. Coursework: DSA, DBMS, Operating Systems, Computer Networks, Machine Learning</td>
+        </tr>
+        <tr>
+          <td>2023</td>
+          <td>Walmart Global Tech — Advanced Software Engineering</td>
+          <td>Virtual experience program: software architecture, relational database design, structured system optimization</td>
+        </tr>
+        <tr>
+          <td>2023</td>
+          <td>JPMorgan Chase — Software Engineering</td>
+          <td>Virtual experience program: processed stock price feeds, built a simulated enterprise trading dashboard</td>
+        </tr>
+        <tr>
+          <td>2018 – 2020</td>
+          <td>Higher Secondary Education</td>
+          <td>DAV Public School — 91.4%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- CONTACT: telegram slip                                        -->
+<!-- ============================================================ -->
+<section id="contact" class="sheet telegram-sheet reveal">
+  <div class="sheet-inner">
+    <p class="sheet-eyebrow">SEND TRANSMISSION</p>
+    <h2 class="sheet-title">Contact</h2>
+
+    <div class="telegram-grid">
+      <div class="telegram-details">
+        <p><span class="tg-label">EMAIL —</span> <a href="mailto:ojasnagta@gmail.com">ojasnagta@gmail.com</a></p>
+        <p><span class="tg-label">MOBILE —</span> +91-7018991170</p>
+        <!-- EDIT ME: replace # with your real GitHub and LinkedIn URLs -->
+        <p><span class="tg-label">GITHUB —</span> <a href="#" id="githubLink">github.com/yourusername</a></p>
+        <p><span class="tg-label">LINKEDIN —</span> <a href="#" id="linkedinLink">linkedin.com/in/yourusername</a></p>
+      </div>
+
+      <form class="telegram-form" id="contactForm">
+        <label for="fromField">FROM</label>
+        <input type="text" id="fromField" name="from" required>
+
+        <label for="emailField">REPLY-TO EMAIL</label>
+        <input type="email" id="emailField" name="email" required>
+
+        <label for="messageField">MESSAGE</label>
+        <textarea id="messageField" name="message" rows="4" required></textarea>
+
+        <button type="submit">TRANSMIT →</button>
+        <p class="telegram-note" id="formNote" role="status"></p>
+        <!-- EDIT ME: this form does not send email by default. Wire it to
+             Formspree, Getform, or your own backend — see README.md -->
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>END OF TRANSMISSION — © <span id="year"></span> OJAS NAGTA</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
