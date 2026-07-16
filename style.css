@@ -265,8 +265,10 @@ body {
 }
 .polaroid-placeholder {
   aspect-ratio: 1;
+  width: 100%;
+  object-fit: cover;
+  display: block;
   background: repeating-linear-gradient(45deg, #d9d1b8, #d9d1b8 8px, #ccc3a4 8px, #ccc3a4 16px);
-  display: flex; align-items: center; justify-content: center;
   font-family: var(--font-mono);
   font-size: 0.8rem;
   color: #5a5340;
